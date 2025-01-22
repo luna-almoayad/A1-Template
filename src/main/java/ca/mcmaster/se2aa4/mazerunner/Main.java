@@ -1,8 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.cli.*; 
@@ -21,6 +22,9 @@ public class Main {
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd;
 
+        final ArrayList<ArrayList<Boolean>> maze = new ArrayList<>();
+
+
         try {
             cmd = parser.parse(options,args);
             String fileName = cmd.getOptionValue("i");
@@ -28,15 +32,21 @@ public class Main {
             logger.info("**** Reading the maze from file " + fileName);
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
+            int row= 0;
 
             while ((line = reader.readLine()) != null) {
+                maze.add(0,new ArrayList<Boolean>());
                 for (int idx = 0; idx < line.length(); idx++) {
                     if (line.charAt(idx) == '#') {
                         logger.info("WALL "); //ask if these need to be displayed or if i should use trace 
+                        maze.get(row).add(idx,false);
+
                     } else if (line.charAt(idx) == ' ') {
                         logger.info("PASS ");
+                        maze.get(row).add(idx,true);
+
                     }
-                }
+                }row++;
                 System.out.print(System.lineSeparator());// DOES END OF LINE, SO CAN I DO LOGGER.TRACE ("LINE ENDS")
             }
             reader.close();
