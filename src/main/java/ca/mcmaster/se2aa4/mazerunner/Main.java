@@ -20,36 +20,22 @@ public class Main {
         options.addOption("i",true, "File path for maze.");
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cmd;
-
-        final ArrayList<ArrayList<Boolean>> maze = new ArrayList<>();
-
+      
 
         try {
-            cmd = parser.parse(options,args);
-            String fileName = cmd.getOptionValue("i");
+            CommandLine cmd = parser.parse(options,args);
 
-            logger.info("**** Reading the maze from file " + fileName);
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            String line;
-            int row= 0;
-
-            while ((line = reader.readLine()) != null) {
-                maze.add(0,new ArrayList<Boolean>());
-                for (int idx = 0; idx < line.length(); idx++) {
-                    if (line.charAt(idx) == '#') {
-                        logger.info("WALL "); //ask if these need to be displayed or if i should use trace 
-                        maze.get(row).add(idx,false);
-
-                    } else if (line.charAt(idx) == ' ') {
-                        logger.info("PASS ");
-                        maze.get(row).add(idx,true);
-
-                    }
-                }row++;
-                System.out.print(System.lineSeparator());// DOES END OF LINE, SO CAN I DO LOGGER.TRACE ("LINE ENDS")
+            if (cmd.hasOption("i")){
+                String fileName = cmd.getOptionValue("i");
+                logger.info("**** Reading the maze from file " + fileName);
+                Maze maze = new Maze(fileName);
+                maze.getEntry();
+                maze.getExit();
+    
+                //Runner runner = new Runner(maze);
             }
-            reader.close();
+
+            
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
         }
@@ -57,4 +43,7 @@ public class Main {
         logger.warn("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");
     }
+
+    
+
 }
