@@ -18,6 +18,7 @@ public class Main {
         //Step 1: use apache CLI to search for -i flag
         Options options= new Options();
         options.addOption("i",true, "File path for maze.");
+        options.addOption("p",true,  "Path for maze.");
 
         CommandLineParser parser = new DefaultParser();
       
@@ -29,13 +30,18 @@ public class Main {
                 String fileName = cmd.getOptionValue("i");
                 logger.info("**** Reading the maze from file " + fileName);
                 Maze maze = new Maze(fileName);
-                maze.getEntry();
-                maze.getExit();
-    
-                //Runner runner = new Runner(maze);
+                Runner runner = new Runner(maze);
+
+                if (cmd.hasOption("p")){
+                    String userPath = cmd.getOptionValue("p");
+                    logger.info("**** Validating Path: " + userPath);
+                    PathFinder pathFinder = new PathFinder (userPath, runner);
+                }
+
+            } else {
+                logger.error("No maze file provided. Use -i flag to specify the file path.");
             }
 
-            
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
         }
