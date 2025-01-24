@@ -50,6 +50,8 @@ public class Maze{
             System.out.print(System.lineSeparator());
         }
         reader.close();
+
+        logger.info("Maze loaded successfully. Rows: " + maze.size() + "Columns: "+ maze.get(0).size());
        
     }
 
@@ -58,9 +60,11 @@ public class Maze{
             if (maze.get(row).get(0) == true) {
                 entryRow = row;
                 entryCol= 0; 
-                System.out.println("Enter:" +entryRow + ","  +entryCol);
+                logger.info ("Entry point: (" + entryRow +" , " + entryCol + ")");
+                return;
             }
         }
+        logger.warn("No entry point found");
 
     }
 
@@ -70,10 +74,37 @@ public class Maze{
             if (maze.get(row).get(cols) == true) {
                 exitRow = row;
                 exitCol= cols; 
-                System.out.println("Exit:"+ exitRow + ","  +exitCol);
+                logger.info ("Exit point: (" + exitRow +" , " + exitCol + ")");
+                return;
+        
             }
         }
+        logger.warn("No exit point found");
     }
+
+    private boolean isWall(int row, int col){
+        if (!(maze.get(row).get(col))){
+            return true;
+        }
+        return false;
+    }
+    public int getExitRow(){
+        return exitRow;
+    }
+
+    public int getExitCol(){
+        return exitCol;
+    }
+    public int getEntryRow(){
+        return entryRow;
+    }
+
+    public int getEntryCol(){
+        return entryCol;
+    }
+
+
+
 }
 
 
