@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
 
-        //Step 1: use apache CLI to search for -i flag
+        //Step 1: use apache CLI to search for -i or -p flag
         Options options= new Options();
         options.addOption("i",true, "File path for maze.");
         options.addOption("p",true,  "Path for maze.");
@@ -30,14 +30,19 @@ public class Main {
                 String fileName = cmd.getOptionValue("i");
                 logger.info("**** Reading the maze from file " + fileName);
                 Maze maze = new Maze(fileName);
+                System.out.println("The Maze is:");
+                maze.printMaze();
                 Runner runner = new Runner(maze);
+                String canon= runner.generatePath();
 
                 if (cmd.hasOption("p")){
                     String userPath = cmd.getOptionValue("p");
                     logger.info("**** Validating Path: " + userPath);
                     PathFinder pathFinder = new PathFinder (userPath, runner);
+                    System.out.println(pathFinder.getFactorized(canon));
                 }
-
+                System.out.println("The correct path is: "+ canon);
+            
             } else {
                 logger.error("No maze file provided. Use -i flag to specify the file path.");
             }

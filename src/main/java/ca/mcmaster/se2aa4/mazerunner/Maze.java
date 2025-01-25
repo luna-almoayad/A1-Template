@@ -1,16 +1,11 @@
 package ca.mcmaster.se2aa4.mazerunner;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.commons.cli.*; 
 import java.util.ArrayList;
-import java.util.List;
 
-//MVP work for one maze, has factor thing for one maze 
 
 public class Maze{
 
@@ -25,6 +20,7 @@ public class Maze{
         loadMaze(fileName);
     }
 
+    //Load maze from file and append it to 2d aray 
     private void loadMaze (String fileName) throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String line;
@@ -33,29 +29,37 @@ public class Maze{
 
         while ((line = reader.readLine()) != null) {
             maze.add(new ArrayList<>());
+
             for (int idx = 0; idx < line.length(); idx++) {
                 if (line.charAt(idx) == '#') {
                     maze.get(row).add(false);
+                    logger.trace("WALL");
 
                 } else if (line.charAt(idx) == ' ') {
                     maze.get(row).add(true);
+                    logger.trace("PASS");
         
-                } /*else if (line.charAt(idx) == '\n'){  
-                    for (int i =0; idx < line.length(); i++){
-                        maze.get(row).add(true);
-                    }
-                }*/
+                }
+                
+            }
+            if (line.trim().isEmpty()){
+                for (int i = 0; i < maze.get(0).size(); i++){
+                    maze.get(row).add(true);
+                    logger.trace("PASS");
+                }
             }
             row ++;
-            System.out.print(System.lineSeparator());
+            logger.trace("End of Line");
         }
         reader.close();
 
-        logger.info("Maze loaded successfully. Rows: " + maze.size() + "Columns: "+ maze.get(0).size());
+        logger.info("Maze loaded successfully. Rows: " + maze.size() + " Columns: "+ maze.get(0).size());
        
     }
+    
 
     public void getEntry(){
+        //determine entry point 
         for (int row=0; row < maze.size(); row++){
             if (maze.get(row).get(0) == true) {
                 entryRow = row;
@@ -69,6 +73,7 @@ public class Maze{
     }
 
     public void getExit() {
+        //determine exit point 
         int cols= (maze.get(0).size()) - 1; 
         for (int row=0; row < maze.size(); row++){
             if (maze.get(row).get(cols) == true) {
@@ -82,7 +87,21 @@ public class Maze{
         logger.warn("No exit point found");
     }
 
-    private boolean isWall(int row, int col){
+    public void printMaze(){
+        System.out.println();
+        for (int row=0; row<maze.size(); row++){
+            for(int col=0; col < maze.get(0).size(); col++){
+                if(maze.get(row).get(col)){
+                    System.out.print(" ");
+                }else{
+                    System.out.print("#");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public boolean isWall (int row, int col){
         if (!(maze.get(row).get(col))){
             return true;
         }
