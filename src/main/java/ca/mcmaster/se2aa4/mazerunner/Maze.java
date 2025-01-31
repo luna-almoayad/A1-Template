@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Maze{
 
     private ArrayList<ArrayList<Boolean>> maze;
+    private MazeLocation mazeLocation;
     private int entryRow, entryCol;
     private int exitRow,exitCol;
 
@@ -58,29 +59,31 @@ public class Maze{
     }
     
 
-    public void getEntry(){
+    public MazeLocation getEntry(){
         //determine entry point 
         for (int row=0; row < maze.size(); row++){
             if (maze.get(row).get(0) == true) {
                 entryRow = row;
                 entryCol= 0; 
                 logger.info ("Entry point: (" + entryRow +" , " + entryCol + ")");
-                return;
+                MazeLocation entrance = new MazeLocation(entryRow, entryCol);
+                return entrance ; 
             }
         }
         logger.warn("No entry point found");
-
+        
     }
 
-    public void getExit() {
+    public MazeLocation getExit() {
         //determine exit point 
         int cols= (maze.get(0).size()) - 1; 
         for (int row=0; row < maze.size(); row++){
             if (maze.get(row).get(cols) == true) {
                 exitRow = row;
                 exitCol= cols; 
+                MazeLocation exit = new MazeLocation( exitRow, exitCol);
                 logger.info ("Exit point: (" + exitRow +" , " + exitCol + ")");
-                return;
+                return exit;
         
             }
         }
@@ -101,28 +104,13 @@ public class Maze{
         }
     }
 
-    public boolean isWall (int row, int col){
-        if (!(maze.get(row).get(col))){
+    public boolean isWall (MazeLocation location){
+        if (!(maze.get(location.y).get(location.x))){
             return true;
         }
         return false;
     }
-    public int getExitRow(){
-        return exitRow;
-    }
-
-    public int getExitCol(){
-        return exitCol;
-    }
-    public int getEntryRow(){
-        return entryRow;
-    }
-
-    public int getEntryCol(){
-        return entryCol;
-    }
-
-
+   
 
 }
 
