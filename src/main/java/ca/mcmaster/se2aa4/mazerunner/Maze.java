@@ -71,7 +71,7 @@ public class Maze{
             }
         }
         logger.warn("No entry point found");
-        
+        return null;
     }
 
     public MazeLocation getExit() {
@@ -88,6 +88,7 @@ public class Maze{
             }
         }
         logger.warn("No exit point found");
+        return null;
     }
 
     public void printMaze(){
