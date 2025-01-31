@@ -18,16 +18,16 @@ public class MazeLocation {
 
 
     public MazeLocation makeMove(Directions direction){
-        if (direction == DOWN){
+        if (direction == Directions.DOWN){
             return this.addMove(new MazeLocation( 0, 1));
         }
-        else if (direction == UP){
+        else if (direction == Directions.UP){
             return this.addMove(new MazeLocation (0, -1));
         }
-        else if (direction == LEFT){
+        else if (direction == Directions.LEFT){
             return this.addMove(new MazeLocation (-1, 0));
         }
-        else if (direction == RIGHT){
+        else if (direction == Directions.RIGHT){
             return this.addMove(new MazeLocation (1, 0));
         }else{
             throw new IllegalStateException ("Value ( " + this +" ) not accepted:");
