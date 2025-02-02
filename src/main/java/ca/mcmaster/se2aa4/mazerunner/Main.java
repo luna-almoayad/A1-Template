@@ -47,7 +47,7 @@ public class Main {
             logger.error("/!\\ An error has occured /!\\",e);
         }
         logger.info("**** Computing path");
-        logger.warn("PATH NOT COMPUTED");
+        logger.warn("PATH NOT COMPUTED.");
         logger.info("** End of MazeRunner");
     }
 
