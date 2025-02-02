@@ -1,23 +1,26 @@
 package ca.mcmaster.se2aa4.mazerunner;
 public class PathFinder {
    
-    private Runner runner; 
-    private String userPath;
+     
+    private StringBuilder path; 
 
-    public PathFinder(String userPath, Runner runner){
-        this.runner = runner;
-        this.userPath = userPath;
-        String canon= runner.generatePath();
-        getFactorized(canon);
-        checkPath(userPath);
+    public PathFinder(){
+        this.path = new StringBuilder();
     }
 
-    
+    public void generatePath(char step){
+        path.append(step); 
+    }
+
+    public String getPath(){
+        return getFactorized(path.toString());
+    }
+
     public void checkPath(String userPath){
         // convert path in case it is factorized 
-        String cleanedPath= expandFactorizedForm(userPath);
-        //determine if it is correct 
-        if (cleanedPath.equals(runner.generatePath())){
+        String cleanedPath= getFactorized(userPath);
+        //determine if it is correct by checking to maze generated path 
+        if (cleanedPath.equals(getPath())){
             System.out.println("Correct Path!");
         } else{
             System.out.println("Incorrect Path.");
@@ -25,7 +28,8 @@ public class PathFinder {
 
     }
 
-    private String expandFactorizedForm(String path){
+    //do i need this??
+    /*private String expandFactorizedForm(String path){
         StringBuilder toCanonical = new StringBuilder();
         // iterate through string until digit is found 
         for (int i=0; i < path.length(); i++){
@@ -51,7 +55,7 @@ public class PathFinder {
         }
         return toCanonical.toString();
 
-    }
+    }*/
 
     public String getFactorized(String path){
         StringBuilder toFactorized= new StringBuilder();

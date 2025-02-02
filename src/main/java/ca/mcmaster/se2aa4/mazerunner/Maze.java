@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Maze{
 
     private ArrayList<ArrayList<Boolean>> maze;
-    private MazeLocation mazeLocation;
     private int entryRow, entryCol;
     private int exitRow,exitCol;
 
@@ -65,8 +64,8 @@ public class Maze{
             if (maze.get(row).get(0) == true) {
                 entryRow = row;
                 entryCol= 0; 
-                logger.info ("Entry point: (" + entryRow +" , " + entryCol + ")");
-                MazeLocation entrance = new MazeLocation(entryRow, entryCol);
+                //logger.info ("Entry point: (" + entryCol+" , " + entryRow + ")");
+                MazeLocation entrance = new MazeLocation(entryCol, entryRow);
                 return entrance ; 
             }
         }
@@ -81,8 +80,8 @@ public class Maze{
             if (maze.get(row).get(cols) == true) {
                 exitRow = row;
                 exitCol= cols; 
-                MazeLocation exit = new MazeLocation( exitRow, exitCol);
-                logger.info ("Exit point: (" + exitRow +" , " + exitCol + ")");
+                MazeLocation exit = new MazeLocation(exitCol, exitRow);
+                //logger.info ("Exit point: (" + exitCol +" , " + exitRow + ")");
                 return exit;
         
             }
@@ -91,7 +90,7 @@ public class Maze{
         return null;
     }
 
-    public void printMaze(){
+    /*public void printMaze(){
         System.out.println();
         for (int row=0; row<maze.size(); row++){
             for(int col=0; col < maze.get(0).size(); col++){
@@ -103,13 +102,15 @@ public class Maze{
             }
             System.out.println();
         }
-    }
+    }*/
 
     public boolean isWall (MazeLocation location){
-        if (!(maze.get(location.y).get(location.x))){
-            return true;
+        
+        if (location.y < 0 || location.y >= maze.size() || location.x < 0 || location.x >= maze.get(0).size()) {
+            return true; // Treat out-of-bounds as a wall
         }
-        return false;
+
+        return !maze.get(location.y).get(location.x);
     }
    
 

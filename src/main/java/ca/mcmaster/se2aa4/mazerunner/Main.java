@@ -10,7 +10,7 @@ import org.apache.commons.cli.*;
 
 public class Main {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
@@ -30,15 +30,14 @@ public class Main {
                 String fileName = cmd.getOptionValue("i");
                 logger.info("**** Reading the maze from file " + fileName);
                 Maze maze = new Maze(fileName);
-                System.out.println("The Maze is:");
-                maze.printMaze();
-                Runner runner = new Runner(maze);
-                String canon= runner.generatePath();
+                PathFinder pathFinder = new PathFinder();
+                Runner runner = new Runner(pathFinder);
+                String canon= runner.solveMaze(maze);
 
                 if (cmd.hasOption("p")){
                     String userPath = cmd.getOptionValue("p");
                     logger.info("**** Validating Path: " + userPath);
-                    PathFinder pathFinder = new PathFinder (userPath, runner);
+                    pathFinder.checkPath(userPath);
                     System.out.println(pathFinder.getFactorized(canon));
                 }
                 System.out.println("The correct path is: "+ canon);
@@ -48,7 +47,7 @@ public class Main {
             }
 
         } catch(Exception e) {
-            logger.error("/!\\ An error has occured /!\\");
+            logger.error("/!\\ An error has occured /!\\",e);
         }
         logger.info("**** Computing path");
         logger.warn("PATH NOT COMPUTED");
