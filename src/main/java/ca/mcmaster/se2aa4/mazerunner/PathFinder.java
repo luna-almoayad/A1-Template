@@ -12,15 +12,18 @@ public class PathFinder {
         path.append(step); 
     }
 
+    public String getCanonical(){
+        return path.toString();
+    }
     public String getPath(){
         return getFactorized(path.toString());
     }
 
     public void checkPath(String userPath){
         // convert path in case it is factorized 
-        String cleanedPath= getFactorized(userPath);
+        String cleanedPath= expandFactorizedForm(userPath);
         //determine if it is correct by checking to maze generated path 
-        if (cleanedPath.equals(getPath())){
+        if (cleanedPath.equals(getCanonical())){
             System.out.println("Correct Path!");
         } else{
             System.out.println("Incorrect Path.");
@@ -29,7 +32,7 @@ public class PathFinder {
     }
 
     //do i need this??
-    /*private String expandFactorizedForm(String path){
+    private String expandFactorizedForm(String path){
         StringBuilder toCanonical = new StringBuilder();
         // iterate through string until digit is found 
         for (int i=0; i < path.length(); i++){
@@ -55,30 +58,39 @@ public class PathFinder {
         }
         return toCanonical.toString();
 
-    }*/
+    }
 
-    public String getFactorized(String path){
-        StringBuilder toFactorized= new StringBuilder();
-        int count=1;
-        
-        for (int i=0; i<path.length(); i++){
-            if (i < (path.length() -1) && path.charAt(i)== path.charAt(i+1)){
+    public String getFactorized(String path) {
+        StringBuilder toFactorized = new StringBuilder();
+        int count = 1;
+
+        for (int i = 0; i < path.length(); i++) {
+            // If this is not the last character and the next character is the same, increment the count
+            if (i < path.length() - 1 && path.charAt(i) == path.charAt(i + 1)) {
                 count++;
-            } else{
-                if (count >1){
+            } else {
+                // Append the count only if it is greater than 1, otherwise just append the character
+                if (count > 1) {
                     toFactorized.append(count);
                 }
                 toFactorized.append(path.charAt(i));
-                count=1;
+    
+                // Reset count for the next character
+                count = 1;
+    
+                // Add a space only if it's not the last character
                 if (i<path.length()-1){
                     toFactorized.append(" ");
                 }
-                
+                 
             }
         }
-
-        return("The factorized path is: "+ toFactorized.toString());
+    
+        return toFactorized.toString();
     }
+
+   
+            
 }
 
 

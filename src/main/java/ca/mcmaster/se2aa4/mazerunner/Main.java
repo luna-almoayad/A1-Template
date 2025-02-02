@@ -39,7 +39,7 @@ public class Main {
                     logger.info("**** Validating Path: " + userPath);
                     pathFinder.checkPath(userPath);
                 }
-                System.out.println(canon);
+                System.out.println("The correct path is: "+ canon);
             
             } else {
                 logger.error("No maze file provided. Use -i flag to specify the file path.");
