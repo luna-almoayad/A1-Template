@@ -38,9 +38,8 @@ public class Main {
                     String userPath = cmd.getOptionValue("p");
                     logger.info("**** Validating Path: " + userPath);
                     pathFinder.checkPath(userPath);
-                    System.out.println(pathFinder.getFactorized(canon));
                 }
-                System.out.println("The correct path is: "+ canon);
+                System.out.println(canon);
             
             } else {
                 logger.error("No maze file provided. Use -i flag to specify the file path.");

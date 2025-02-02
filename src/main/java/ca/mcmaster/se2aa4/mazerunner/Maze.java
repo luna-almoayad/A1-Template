@@ -26,10 +26,11 @@ public class Maze{
         String line;
 
         int row = 0;
-
+        int maxCols =0;
         while ((line = reader.readLine()) != null) {
             maze.add(new ArrayList<>());
 
+            maxCols = Math.max(maxCols, line.length());
             for (int idx = 0; idx < line.length(); idx++) {
                 if (line.charAt(idx) == '#') {
                     maze.get(row).add(false);
@@ -48,6 +49,10 @@ public class Maze{
                     logger.trace("PASS");
                 }
             }
+            while (maze.get(row).size() < maxCols) {
+                maze.get(row).add(true);  // Add empty spaces if there are fewer columns
+            }
+
             row ++;
             logger.trace("End of Line");
         }

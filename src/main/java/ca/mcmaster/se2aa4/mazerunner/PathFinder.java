@@ -65,8 +65,15 @@ public class PathFinder {
             if (i < (path.length() -1) && path.charAt(i)== path.charAt(i+1)){
                 count++;
             } else{
-                toFactorized.append(count).append(path.charAt(i));
+                if (count >1){
+                    toFactorized.append(count);
+                }
+                toFactorized.append(path.charAt(i));
                 count=1;
+                if (i<path.length()-1){
+                    toFactorized.append(" ");
+                }
+                
             }
         }
 
