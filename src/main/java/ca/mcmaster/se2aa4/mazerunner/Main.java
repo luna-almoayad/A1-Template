@@ -27,14 +27,14 @@ public class Main {
                 Maze maze = new Maze(fileName);
                 PathFinder pathFinder = new PathFinder();
                 Runner runner = new Runner(pathFinder);
-                String canon= runner.solveMaze(maze);
+                String solution= runner.solveMaze(maze);
 
                 if (cmd.hasOption("p")){
                     String userPath = cmd.getOptionValue("p");
                     logger.info("**** Validating Path: " + userPath);
                     pathFinder.checkPath(userPath);
                 }
-                System.out.println("The correct path is: "+ canon);
+                System.out.println("The correct path is (assuming east-west): "+ solution);
             
             } else {
                 logger.error("No maze file provided. Use -i flag to specify the file path.");

@@ -9,7 +9,7 @@ public class MazeLocation {
         this.y= y;
     }
 
-    public MazeLocation addMove(MazeLocation previous){
+    private MazeLocation addMove(MazeLocation previous){
         //add error checkin here
         return new MazeLocation (this.x + previous.x, this.y +previous.y);
     }

@@ -12,9 +12,10 @@ public class PathFinder {
         path.append(step); 
     }
 
-    public String getCanonical(){
+    private String getCanonical(){
         return path.toString();
     }
+
     public String getPath(){
         return getFactorized(path.toString());
     }
@@ -32,7 +33,7 @@ public class PathFinder {
 
     }
 
-    //do i need this??
+    
     private String expandFactorizedForm(String path){
         StringBuilder toCanonical = new StringBuilder();
         // iterate through string until digit is found 
@@ -61,7 +62,7 @@ public class PathFinder {
 
     }
 
-    public String reversePath (String path){
+    private String reversePath (String path){
         StringBuilder reverse= new StringBuilder(path).reverse();
         for (int i =0; i<reverse.length(); i++){
             char current= reverse.charAt(i);
@@ -76,7 +77,7 @@ public class PathFinder {
         
     
 
-    public String getFactorized(String path) {
+    private String getFactorized(String path) {
         StringBuilder toFactorized = new StringBuilder();
         int count = 1;
 

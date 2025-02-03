@@ -95,20 +95,6 @@ public class Maze{
         return null;
     }
 
-    /*public void printMaze(){
-        System.out.println();
-        for (int row=0; row<maze.size(); row++){
-            for(int col=0; col < maze.get(0).size(); col++){
-                if(maze.get(row).get(col)){
-                    System.out.print(" ");
-                }else{
-                    System.out.print("#");
-                }
-            }
-            System.out.println();
-        }
-    }*/
-
     public boolean isWall (MazeLocation location){
         
         if (location.y < 0 || location.y >= maze.size() || location.x < 0 || location.x >= maze.get(0).size()) {
