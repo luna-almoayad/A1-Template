@@ -31,12 +31,13 @@ public class Main {
                 String solution= runner.solveMaze(maze);
 
                 if (cmd.hasOption("p")){
-                    //validate user path and output correct path
+                    //validate user path and output correct pathßß
                     String userPath = cmd.getOptionValue("p");
                     logger.info("**** Validating Path: " + userPath);
                     pathFinder.checkPath(userPath);
+                }else {
+                    System.out.println("The correct path is (assuming east-west): "+ solution);
                 }
-                System.out.println("The correct path is (assuming east-west): "+ solution);
             
             } else {
                 logger.error("No maze file provided. Use -i flag to specify the file path.");
