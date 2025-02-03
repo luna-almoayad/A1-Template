@@ -33,6 +33,7 @@ public class MazeLocation {
         }
     }
     
+    //Overrode equals method for objects within MazeLocation class 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

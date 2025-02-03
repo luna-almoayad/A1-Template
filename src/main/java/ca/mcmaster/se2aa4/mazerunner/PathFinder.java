@@ -22,8 +22,9 @@ public class PathFinder {
     public void checkPath(String userPath){
         // convert path in case it is factorized 
         String cleanedPath= expandFactorizedForm(userPath);
+        String reversedPath= reversePath(cleanedPath);
         //determine if it is correct by checking to maze generated path 
-        if (cleanedPath.equals(getCanonical())){
+        if (cleanedPath.equals(getCanonical())|| reversedPath.equals(getCanonical())){
             System.out.println("Correct Path!");
         } else{
             System.out.println("Incorrect Path.");
@@ -59,6 +60,21 @@ public class PathFinder {
         return toCanonical.toString();
 
     }
+
+    public String reversePath (String path){
+        StringBuilder reverse= new StringBuilder(path).reverse();
+        for (int i =0; i<reverse.length(); i++){
+            char current= reverse.charAt(i);
+            if (current == 'R'){
+                reverse.setCharAt(i, 'L');
+            }else if (current == 'L'){
+                reverse.setCharAt(i,'R');
+            }
+        }
+        return reverse.toString();
+    }
+        
+    
 
     public String getFactorized(String path) {
         StringBuilder toFactorized = new StringBuilder();
