@@ -21,17 +21,19 @@ public class Main {
         try {
             CommandLine cmd = parser.parse(options,args);
 
+            // check for user flages 
             if (cmd.hasOption("i")){
                 // Run maze runner program to find path out of given maze 
                 String fileName = cmd.getOptionValue("i");
                 logger.info("**** Reading the maze from file " + fileName);
+                //Create new instances of maze, pathfinder and runner to solve maze
                 Maze maze = new Maze(fileName);
                 PathFinder pathFinder = new PathFinder();
                 Runner runner = new Runner(pathFinder);
                 String solution= runner.solveMaze(maze);
 
                 if (cmd.hasOption("p")){
-                    //validate user path and output correct pathßß
+                    //validate user path and output correct path
                     String userPath = cmd.getOptionValue("p");
                     logger.info("**** Validating Path: " + userPath);
                     pathFinder.checkPath(userPath);
@@ -44,7 +46,7 @@ public class Main {
             }
 
         } catch(Exception e) {
-            logger.error("/!\\ An error has occured /!\\",e);
+            logger.error("/!\\ An error has occured /!\\"+ e);
         }
         logger.info("**** Computing path");
         logger.warn("PATH NOT COMPUTED.");

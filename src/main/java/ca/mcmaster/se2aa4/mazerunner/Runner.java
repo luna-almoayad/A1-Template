@@ -7,6 +7,7 @@ public class Runner {
 
     private static final Logger logger = LogManager.getLogger(Runner.class);
 
+    //Constructor method to initialize pathfinder object
     public Runner (PathFinder pathFinder){
         this.pathFinder= pathFinder;
     }
@@ -25,7 +26,7 @@ public class Runner {
                 currentDir = currentDir.rightTurn();
                 pathFinder.generatePath('R'); // update path with every movement 
                 currentPos = currentPos.makeMove(currentDir);
-                pathFinder.generatePath('F');
+                pathFinder.generatePath('F'); // append a forward step to account for lack of movement when turning
             } else {
                 // move forward if no wall 
                 if(!maze.isWall(currentPos.makeMove(currentDir))){

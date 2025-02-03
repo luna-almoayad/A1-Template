@@ -4,6 +4,7 @@ public class PathFinder {
      
     private StringBuilder path; 
 
+    //Constructor method to initialize a new path
     public PathFinder(){
         this.path = new StringBuilder();
     }
@@ -58,7 +59,10 @@ public class PathFinder {
                 } else{
                     System.out.println("Cannot have digit with no following letter.");
                 }
-            } else{
+            // skip character if it is an empty space
+            } else if (current == ' '){
+                continue;
+            }else{
                 toCanonical.append(current);
             }
 
@@ -67,11 +71,14 @@ public class PathFinder {
 
     }
 
-
+    // method to reverse path for traversal from west to east 
     private String reversePath (String path){
+        // reverse current path 
         StringBuilder reverse= new StringBuilder(path).reverse();
+        //iterate through each character in reversed path 
         for (int i =0; i<reverse.length(); i++){
             char current= reverse.charAt(i);
+            //switch left and right to account for orientation change
             if (current == 'R'){
                 reverse.setCharAt(i, 'L');
             }else if (current == 'L'){

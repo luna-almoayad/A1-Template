@@ -9,6 +9,7 @@ public enum Directions {
 
     // handles direction switching when turning right 
     public Directions rightTurn() {
+        // based on the current direction, return the correct direction upon turning 
         if (this == UP){
             return RIGHT;
         }
@@ -21,13 +22,14 @@ public enum Directions {
         else if (this == RIGHT){
             return DOWN;
         }
-
+        // handle exceptions and errors 
         throw new IllegalStateException("Value ( " + this +" ) not accepted:");
 
     }
 
     // handles direction switching when turning left 
     public Directions leftTurn() {
+        // based on current direction, return direction upon turning left 
         if (this == UP){
             return LEFT;
         }
@@ -40,7 +42,7 @@ public enum Directions {
         else if (this == RIGHT){
             return UP;
         }
-
+        //handle exceptions and errors 
         throw new IllegalStateException("Value ( " + this +" ) not accepted:");
 
     }
