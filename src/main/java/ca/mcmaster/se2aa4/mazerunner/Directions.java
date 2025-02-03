@@ -1,12 +1,13 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-
+// enum responsible for navigation system of maze runner 
 public enum Directions {
     UP,
     DOWN,
     RIGHT, 
     LEFT;
 
+    // handles direction switching when turning right 
     public Directions rightTurn() {
         if (this == UP){
             return RIGHT;
@@ -25,6 +26,7 @@ public enum Directions {
 
     }
 
+    // handles direction switching when turning left 
     public Directions leftTurn() {
         if (this == UP){
             return LEFT;

@@ -11,25 +11,28 @@ public class Runner {
         this.pathFinder= pathFinder;
     }
 
+    //method responsible for maze traversal and solving 
     public String solveMaze (Maze maze){
-
+        //start position and initial direction 
         MazeLocation currentPos = maze.getEntry();
         Directions currentDir = Directions.RIGHT; 
 
+        // loop through algorithm while the current position is not at exit of maze 
         while (!currentPos.equals(maze.getExit())){
     
+            //turn right if there is no wall 
             if (!maze.isWall(currentPos.makeMove(currentDir.rightTurn()))){
                 currentDir = currentDir.rightTurn();
-                pathFinder.generatePath('R');
+                pathFinder.generatePath('R'); // update path with every movement 
                 currentPos = currentPos.makeMove(currentDir);
                 pathFinder.generatePath('F');
             } else {
-
+                // move forward if no wall 
                 if(!maze.isWall(currentPos.makeMove(currentDir))){
                     currentPos= currentPos.makeMove(currentDir);
                     pathFinder.generatePath('F');
 
-                }
+                } // turn left if unable to move forward but left is possible 
                 else if (!maze.isWall(currentPos.makeMove(currentDir.leftTurn()))){
                     currentDir= currentDir.leftTurn();
                     pathFinder.generatePath('L');
@@ -37,7 +40,7 @@ public class Runner {
                     pathFinder.generatePath('F');
                 }   
 
-          
+                // u-turn if there are no other options 
                 else {
                     currentDir= currentDir.rightTurn().rightTurn();
                     pathFinder.generatePath('R');
@@ -50,7 +53,7 @@ public class Runner {
 
         
 
-        return pathFinder.getPath();
+        return pathFinder.getPath(); // return final path 
 
     }
     

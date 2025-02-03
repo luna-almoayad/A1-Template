@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
 
-        //Step 1: use apache CLI to search for -i or -p flag
+        //use apache CLI to search for -i or -p flag
         Options options= new Options();
         options.addOption("i",true, "File path for maze.");
         options.addOption("p",true,  "Path for maze.");
@@ -22,6 +22,7 @@ public class Main {
             CommandLine cmd = parser.parse(options,args);
 
             if (cmd.hasOption("i")){
+                // Run maze runner program to find path out of given maze 
                 String fileName = cmd.getOptionValue("i");
                 logger.info("**** Reading the maze from file " + fileName);
                 Maze maze = new Maze(fileName);
@@ -30,6 +31,7 @@ public class Main {
                 String solution= runner.solveMaze(maze);
 
                 if (cmd.hasOption("p")){
+                    //validate user path and output correct path
                     String userPath = cmd.getOptionValue("p");
                     logger.info("**** Validating Path: " + userPath);
                     pathFinder.checkPath(userPath);

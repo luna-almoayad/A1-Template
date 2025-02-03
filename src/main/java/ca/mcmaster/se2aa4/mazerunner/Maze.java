@@ -43,14 +43,16 @@ public class Maze{
                 }
                 
             }
+            // handle cases where there's an empty row (all passes)
             if (line.trim().isEmpty()){
                 for (int i = 0; i < maze.get(0).size(); i++){
                     maze.get(row).add(true);
                     logger.trace("PASS");
                 }
             }
+            //handles cases where there are few columns in a row 
             while (maze.get(row).size() < maxCols) {
-                maze.get(row).add(true);  // Add empty spaces if there are fewer columns
+                maze.get(row).add(true);  
             }
 
             row ++;
@@ -63,13 +65,13 @@ public class Maze{
     }
     
 
+    //determine entry coordinates and return as object of the MazeLocation class 
     public MazeLocation getEntry(){
-        //determine entry point 
         for (int row=0; row < maze.size(); row++){
             if (maze.get(row).get(0) == true) {
                 entryRow = row;
                 entryCol= 0; 
-                //logger.info ("Entry point: (" + entryCol+" , " + entryRow + ")");
+                logger.info ("Entry point: (" + entryCol+" , " + entryRow + ")");
                 MazeLocation entrance = new MazeLocation(entryCol, entryRow);
                 return entrance ; 
             }
@@ -78,15 +80,15 @@ public class Maze{
         return null;
     }
 
+    //determine exit coordinates and return as object of the MazeLocation class 
     public MazeLocation getExit() {
-        //determine exit point 
         int cols= (maze.get(0).size()) - 1; 
         for (int row=0; row < maze.size(); row++){
             if (maze.get(row).get(cols) == true) {
                 exitRow = row;
                 exitCol= cols; 
                 MazeLocation exit = new MazeLocation(exitCol, exitRow);
-                //logger.info ("Exit point: (" + exitCol +" , " + exitRow + ")");
+                logger.info ("Exit point: (" + exitCol +" , " + exitRow + ")");
                 return exit;
         
             }
@@ -95,10 +97,12 @@ public class Maze{
         return null;
     }
 
+    // determine whether a location is a wall or passable
     public boolean isWall (MazeLocation location){
         
+        //Edge case: treat any out of bounds locations as walls
         if (location.y < 0 || location.y >= maze.size() || location.x < 0 || location.x >= maze.get(0).size()) {
-            return true; // Treat out-of-bounds as a wall
+            return true; 
         }
 
         return !maze.get(location.y).get(location.x);

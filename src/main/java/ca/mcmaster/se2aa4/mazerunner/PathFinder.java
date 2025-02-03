@@ -8,23 +8,28 @@ public class PathFinder {
         this.path = new StringBuilder();
     }
 
+    // Append steps of path as Runner navigates through maze 
     public void generatePath(char step){
         path.append(step); 
     }
 
+    // gets canonical form of path 
     private String getCanonical(){
         return path.toString();
     }
 
+    //gets Factorized form of path 
     public String getPath(){
         return getFactorized(path.toString());
     }
 
+    // checks user provided path 
     public void checkPath(String userPath){
         // convert path in case it is factorized 
         String cleanedPath= expandFactorizedForm(userPath);
+        // reverse path to check for west - east traversal 
         String reversedPath= reversePath(cleanedPath);
-        //determine if it is correct by checking to maze generated path 
+        //determine if it is correct by comparing to computer generated path 
         if (cleanedPath.equals(getCanonical())|| reversedPath.equals(getCanonical())){
             System.out.println("Correct Path!");
         } else{
@@ -33,7 +38,7 @@ public class PathFinder {
 
     }
 
-    
+    // Expands factorized form to canonical
     private String expandFactorizedForm(String path){
         StringBuilder toCanonical = new StringBuilder();
         // iterate through string until digit is found 
@@ -62,6 +67,7 @@ public class PathFinder {
 
     }
 
+
     private String reversePath (String path){
         StringBuilder reverse= new StringBuilder(path).reverse();
         for (int i =0; i<reverse.length(); i++){
@@ -76,7 +82,7 @@ public class PathFinder {
     }
         
     
-
+    // method to convert a pass to factorized form 
     private String getFactorized(String path) {
         StringBuilder toFactorized = new StringBuilder();
         int count = 1;
@@ -86,7 +92,7 @@ public class PathFinder {
             if (i < path.length() - 1 && path.charAt(i) == path.charAt(i + 1)) {
                 count++;
             } else {
-                // Append the count only if it is greater than 1, otherwise just append the character
+                // Only appnd count if its greater than 1
                 if (count > 1) {
                     toFactorized.append(count);
                 }
