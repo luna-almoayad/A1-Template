@@ -14,26 +14,56 @@ public class PathFinder {
         path.append(step); 
     }
 
-    // gets canonical form of path 
-    private String getCanonical(){
-        return path.toString();
-    }
 
     //gets Factorized form of path 
     public String getPath(){
         return getFactorized(path.toString());
     }
 
+    //Method to traverse through maze to validate user path 
+    private Boolean isCorrectPath(Maze maze, String userPath) {
+        //current position is start and initital orientation is right 
+        MazeLocation currentPos = maze.getEntry(); 
+        Directions currentDir = Directions.RIGHT;  
+
+        // Iterate through each character of user string 
+        for (int i = 0; i < userPath.length(); i++) {
+            char step = userPath.charAt(i);
+            
+            // complete the appropriate action for each step 
+            if (step == 'R') {
+                currentDir = currentDir.rightTurn();
+            } else if (step == 'L') {
+                currentDir = currentDir.leftTurn();
+            } else if (step == 'F') {
+                // check if there's no wall before moving forward 
+                MazeLocation nextPos = currentPos.makeMove(currentDir);
+                if (maze.isWall(nextPos)) {
+                    return false; 
+                }
+                // update position
+                currentPos = nextPos;
+            }
+        }
+
+        // check if exit is reached to determine if valid path 
+        if (currentPos.equals(maze.getExit())){
+            return true;  
+        }
+        
+        return false;  
+    }
+
     // checks user provided path 
-    public void checkPath(String userPath){
-        // convert path in case it is factorized 
+    public void checkPath(Maze maze, String userPath){
+         // convert path in case it is factorized 
         String cleanedPath= expandFactorizedForm(userPath);
         // reverse path to check for west - east traversal 
         String reversedPath= reversePath(cleanedPath);
-        //determine if it is correct by comparing to computer generated path 
-        if (cleanedPath.equals(getCanonical())|| reversedPath.equals(getCanonical())){
+         //determine if it is correct by traversing through maze
+        if (isCorrectPath(maze, cleanedPath) || isCorrectPath(maze, reversedPath) ){
             System.out.println("Correct Path!");
-        } else{
+        }else{
             System.out.println("Incorrect Path.");
         }
 

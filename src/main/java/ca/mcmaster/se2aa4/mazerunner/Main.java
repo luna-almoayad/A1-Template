@@ -36,7 +36,7 @@ public class Main {
                     //validate user path and output correct path
                     String userPath = cmd.getOptionValue("p");
                     logger.info("**** Validating Path: " + userPath);
-                    pathFinder.checkPath(userPath);
+                    pathFinder.checkPath(maze,userPath);
                 }else {
                     System.out.println("The correct path is (assuming east-west): "+ solution);
                 }

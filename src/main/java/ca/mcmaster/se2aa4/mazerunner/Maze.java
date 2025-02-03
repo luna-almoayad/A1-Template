@@ -114,6 +114,8 @@ public class Maze{
 
         return !maze.get(location.y).get(location.x);
     }
+
+   
    
 
 }
