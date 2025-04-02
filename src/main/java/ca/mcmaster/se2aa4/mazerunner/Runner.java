@@ -24,38 +24,39 @@ public class Runner extends Subject implements MazeSolver {
 
         // loop through algorithm while the current position is not at exit of maze 
         while (!currentPos.equals(maze.getExit())){
-            // if wall is on right hand side 
-            if (maze.isWall(currentPos.makeMove(currentDir.rightTurn()))){
-                //case 1: move forward if no wall
-                if (!maze.isWall(currentPos.makeMove(currentDir))){
-                    currentPos = currentPos.makeMove(currentDir);
-                    notifyObservers(currentPos, currentDir, Action.forward);
-                }
-                //case 2: turn left if forward is wall and left is not 
-                else if (!maze.isWall(currentPos.makeMove(currentDir.leftTurn()))){
-                    currentPos= currentPos.makeMove(currentDir.leftTurn());
-                    currentDir= currentDir.leftTurn();
-                    notifyObservers(currentPos, currentDir, Action.left);
-                }
-                //case 3: no other options, must u-turn
-                else{
-                    currentDir= currentDir.rightTurn().rightTurn();
-                    notifyObservers(currentPos, currentDir, Action.uturn);
-                }
-                
-            //right hand side is not wall, turn right
-            }else{
-                currentPos = currentPos.makeMove(currentDir.rightTurn());
-                currentDir = currentDir.rightTurn();
-                notifyObservers(currentPos, currentDir, Action.right);
 
-            }
+            Command command = getNextCommand(maze, currentPos, currentDir);
+            MazeLocation nextPos = command.execute(maze, currentPos, currentDir);
+            notifyObservers (nextPos, command.getNewDir(currentDir), command.getAction());
+            currentPos = nextPos;
+            currentDir = command.getNewDir(currentDir);    
                
             logger.debug("Current Position: " + currentPos.toString()+ "\n Current path:" + generator.getPath());
         }
 
         return generator.getPath(); // return final path 
 
+    }
+
+    public Command getNextCommand(Maze maze, MazeLocation pos, Directions dir){
+        if (maze.isWall(pos.makeMove(dir.rightTurn()))){
+            //case 1: move forward if no wall
+            if (!maze.isWall(pos.makeMove(dir))){
+                return new MoveForwardCommand();
+            }
+            //case 2: turn left if forward is wall and left is not 
+            else if (!maze.isWall(pos.makeMove(dir.leftTurn()))){
+                return new MoveLeftCommand();
+            }
+            //case 3: no other options, must u-turn
+            else{
+                return new UturnCommand();
+            }
+            
+        //right hand side is not wall, turn right
+        }else{
+            return new MoveRightCommand();
+        }
     }
 
    
