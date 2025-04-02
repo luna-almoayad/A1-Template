@@ -1,4 +1,7 @@
-package ca.mcmaster.se2aa4.mazerunner;
+package ca.mcmaster.se2aa4.mazerunner.Path;
+
+import ca.mcmaster.se2aa4.mazerunner.MazeInfo.*;
+import ca.mcmaster.se2aa4.mazerunner.Commands.Action;
 
 public class PathGenerator implements MovementObserver {
 

@@ -4,6 +4,10 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ca.mcmaster.se2aa4.mazerunner.Commands.*;
+import ca.mcmaster.se2aa4.mazerunner.Path.*;
+import ca.mcmaster.se2aa4.mazerunner.MazeInfo.*;
+
 public class Runner extends Subject implements MazeSolver {
 
     private PathGenerator generator;
@@ -42,7 +46,7 @@ public class Runner extends Subject implements MazeSolver {
         if (maze.isWall(pos.makeMove(dir.rightTurn()))){
             //case 1: move forward if no wall
             if (!maze.isWall(pos.makeMove(dir))){
-                return new MoveForwardCommand();
+                return new MoveForwardCommand(dir);
             }
             //case 2: turn left if forward is wall and left is not 
             else if (!maze.isWall(pos.makeMove(dir.leftTurn()))){

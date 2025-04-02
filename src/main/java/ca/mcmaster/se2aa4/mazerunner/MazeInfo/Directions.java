@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.mazerunner;
+package ca.mcmaster.se2aa4.mazerunner.MazeInfo;
 
 // enum responsible for navigation system of maze runner 
 public enum Directions {

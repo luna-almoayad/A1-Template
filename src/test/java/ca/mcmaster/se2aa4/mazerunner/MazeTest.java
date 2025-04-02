@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import java.io.IOException;
+import ca.mcmaster.se2aa4.mazerunner.MazeInfo.*;
 
 public class MazeTest {
     private Maze maze; 

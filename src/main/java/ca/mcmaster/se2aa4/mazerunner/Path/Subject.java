@@ -1,6 +1,9 @@
-package ca.mcmaster.se2aa4.mazerunner;
+package ca.mcmaster.se2aa4.mazerunner.Path;
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.mcmaster.se2aa4.mazerunner.MazeInfo.*;
+import ca.mcmaster.se2aa4.mazerunner.Commands.Action;
 
 public abstract class Subject {
     private final List<MovementObserver> observers = new ArrayList<>();

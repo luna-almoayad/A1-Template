@@ -1,8 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
 import org.junit.jupiter.api.Test;
+import ca.mcmaster.se2aa4.mazerunner.MazeInfo.*;
+import ca.mcmaster.se2aa4.mazerunner.Path.PathFinder;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
-
 import org.junit.jupiter.api.BeforeEach;
 
 public class PathFinderTest {
