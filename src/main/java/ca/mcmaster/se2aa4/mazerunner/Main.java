@@ -1,6 +1,8 @@
 package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+
 import org.apache.commons.cli.*; 
 
 public class Main {
@@ -28,13 +30,14 @@ public class Main {
                 logger.info("**** Reading the maze from file " + fileName);
                 //Create new instances of maze, pathfinder and runner to solve maze
                 Maze maze = new Maze(fileName);
-                PathFinder pathFinder = new PathFinder();
-                Runner runner = new Runner(pathFinder);
+                PathGenerator generator = new PathGenerator();
+                Runner runner = new Runner(generator);
                 String solution= runner.solveMaze(maze);
 
                 if (cmd.hasOption("p")){
                     //validate user path and output correct path
                     String userPath = cmd.getOptionValue("p");
+                    PathFinder pathFinder = new PathFinder();
                     logger.info("**** Validating Path: " + userPath);
                     pathFinder.checkPath(maze,userPath);
                 }else {

@@ -1,21 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 public class PathFinder {
-    private StringBuilder path; 
 
     //Constructor method to initialize a new path
     public PathFinder(){
-        this.path = new StringBuilder();
-    }
-
-    // Append steps of path as Runner navigates through maze 
-    public void generatePath(char step){
-        path.append(step); 
-    }
-
-    //gets Factorized form of path 
-    public String getPath(){
-        return getFactorized(path.toString());
     }
 
     //Method to traverse through maze to validate user path 
@@ -115,35 +103,6 @@ public class PathFinder {
         return reverse.toString();
     }
         
-    
-    // method to convert a path to factorized form 
-    public String getFactorized(String path) {
-        StringBuilder toFactorized = new StringBuilder();
-        int count = 1;
-
-        for (int i = 0; i < path.length(); i++) {
-            // If this is not the last character and the next character is the same, increment the count
-            if (i < path.length() - 1 && path.charAt(i) == path.charAt(i + 1)) {
-                count++;
-            } else {
-                // Only appnd count if its greater than 1
-                if (count > 1) {
-                    toFactorized.append(count);
-                }
-                toFactorized.append(path.charAt(i));
-    
-                // Reset count for the next character
-                count = 1;
-    
-                // Add a space only if it's not the last character
-                if (i<path.length()-1){
-                    toFactorized.append(" ");
-                }  
-            }
-        }
-    
-        return toFactorized.toString();
-    }
             
 }
 
