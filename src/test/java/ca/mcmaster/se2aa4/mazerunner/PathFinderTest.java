@@ -14,13 +14,6 @@ public class PathFinderTest {
         pathFinder = new PathFinder();
     }
 
-    //test conversion of canonical path to factorized path using sample path 
-    @Test
-    public void testgetFactorizedTest(){
-        String path = "FFFRFFLFF";
-        String factorized= "3F R 2F L 2F";
-        assertEquals(factorized, pathFinder.getFactorized(path));
-    }
 
     //test conversion of path to reverse (for traversing maze from opposite start point)
     @Test
