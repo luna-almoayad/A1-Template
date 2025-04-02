@@ -2,25 +2,25 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 // enum responsible for navigation system of maze runner 
 public enum Directions {
-    UP,
-    DOWN,
-    RIGHT, 
-    LEFT;
+    N,
+    S,
+    E, 
+    W;
 
     // handles direction switching when turning right 
     public Directions rightTurn() {
         // based on the current direction, return the correct direction upon turning 
-        if (this == UP){
-            return RIGHT;
+        if (this == N){
+            return E;
         }
-        else if (this == DOWN){
-            return LEFT;
+        else if (this == S){
+            return W;
         }
-        else if (this == LEFT){
-            return UP;
+        else if (this == W){
+            return N;
         }
-        else if (this == RIGHT){
-            return DOWN;
+        else if (this == E){
+            return S;
         }
         // handle exceptions and errors 
         throw new IllegalStateException("Value ( " + this +" ) not accepted:");
@@ -30,17 +30,17 @@ public enum Directions {
     // handles direction switching when turning left 
     public Directions leftTurn() {
         // based on current direction, return direction upon turning left 
-        if (this == UP){
-            return LEFT;
+        if (this == N){
+            return W;
         }
-        else if (this == DOWN){
-            return RIGHT;
+        else if (this == S){
+            return E;
         }
-        else if (this == LEFT){
-            return DOWN;
+        else if (this == W){
+            return S;
         }
-        else if (this == RIGHT){
-            return UP;
+        else if (this == E){
+            return N;
         }
         //handle exceptions and errors 
         throw new IllegalStateException("Value ( " + this +" ) not accepted:");

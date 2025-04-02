@@ -1,7 +1,6 @@
 package ca.mcmaster.se2aa4.mazerunner;
+
 public class PathFinder {
-   
-     
     private StringBuilder path; 
 
     //Constructor method to initialize a new path
@@ -14,7 +13,6 @@ public class PathFinder {
         path.append(step); 
     }
 
-
     //gets Factorized form of path 
     public String getPath(){
         return getFactorized(path.toString());
@@ -24,7 +22,7 @@ public class PathFinder {
     private Boolean isCorrectPath(Maze maze, String userPath) {
         //current position is start and initital orientation is right 
         MazeLocation currentPos = maze.getEntry(); 
-        Directions currentDir = Directions.RIGHT;  
+        Directions currentDir = Directions.E;  
 
         // Iterate through each character of user string 
         for (int i = 0; i < userPath.length(); i++) {
@@ -50,7 +48,6 @@ public class PathFinder {
         if (currentPos.equals(maze.getExit())){
             return true;  
         }
-        
         return false;  
     }
 
@@ -66,7 +63,6 @@ public class PathFinder {
         }else{
             System.out.println("Incorrect Path.");
         }
-
     }
 
     // Expands factorized form to canonical
@@ -98,7 +94,6 @@ public class PathFinder {
 
         }
         return toCanonical.toString();
-
     }
 
     // method to reverse path for traversal from west to east 
@@ -141,15 +136,12 @@ public class PathFinder {
                 // Add a space only if it's not the last character
                 if (i<path.length()-1){
                     toFactorized.append(" ");
-                }
-                 
+                }  
             }
         }
     
         return toFactorized.toString();
     }
-
-   
             
 }
 
