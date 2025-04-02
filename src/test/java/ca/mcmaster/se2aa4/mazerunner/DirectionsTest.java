@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DirectionsTest {
+    
+    // test rightTurn method to ensure proper direction provided 
     @Test
     public void rightTurnTest() {
         assertEquals(Directions.E, Directions.N.rightTurn());
@@ -11,8 +13,9 @@ public class DirectionsTest {
         assertEquals(Directions.N, Directions.W.rightTurn());
     }
 
+    // test leftTurn method to ensure proper direction provided
     @Test 
-    public void leftTuTest() {
+    public void leftTurnTest() {
         assertEquals(Directions.W, Directions.N.leftTurn());
         assertEquals(Directions.N, Directions.E.leftTurn());
         assertEquals(Directions.E, Directions.S.leftTurn());

@@ -52,7 +52,7 @@ public class PathFinder {
     }
 
     // checks user provided path 
-    public void checkPath(Maze maze, String userPath){
+    public boolean checkPath(Maze maze, String userPath){
          // convert path in case it is factorized 
         String cleanedPath= expandFactorizedForm(userPath);
         // reverse path to check for west - east traversal 
@@ -60,13 +60,15 @@ public class PathFinder {
          //determine if it is correct by traversing through maze
         if (isCorrectPath(maze, cleanedPath) || isCorrectPath(maze, reversedPath) ){
             System.out.println("Correct Path!");
+            return true;
         }else{
             System.out.println("Incorrect Path.");
+            return false;
         }
     }
 
     // Expands factorized form to canonical
-    private String expandFactorizedForm(String path){
+    public String expandFactorizedForm(String path){
         StringBuilder toCanonical = new StringBuilder();
         // iterate through string until digit is found 
         for (int i=0; i < path.length(); i++){
@@ -97,7 +99,7 @@ public class PathFinder {
     }
 
     // method to reverse path for traversal from west to east 
-    private String reversePath (String path){
+    public String reversePath (String path){
         // reverse current path 
         StringBuilder reverse= new StringBuilder(path).reverse();
         //iterate through each character in reversed path 
@@ -114,8 +116,8 @@ public class PathFinder {
     }
         
     
-    // method to convert a pass to factorized form 
-    private String getFactorized(String path) {
+    // method to convert a path to factorized form 
+    public String getFactorized(String path) {
         StringBuilder toFactorized = new StringBuilder();
         int count = 1;
 
