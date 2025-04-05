@@ -14,13 +14,13 @@ public class PathFinder {
         List<Command> commands = pathToCommands(cleanedPath, Directions.E);
         List<Command> reversedCommands = pathToCommands(reversedPath, Directions.W);
 
-        // Try East-to-West path traversal 
+        // try East-to-West maze traversal 
         if (simulatePath(maze, maze.getEntry(), Directions.E, commands)) {
             System.out.println("Correct Path!");
             return true;
         }
     
-        // Try West-to-East path traversal
+        // try West-to-East maze traversal
         if (simulatePath(maze, maze.getEntry(), Directions.W, reversedCommands)) {
             System.out.println("Correct Path!");
             return true;
@@ -30,10 +30,12 @@ public class PathFinder {
         return false;
     }
 
+    // method to convert path string to list of command objects 
     public List<Command> pathToCommands(String path, Directions startDir) {
         List<Command> commands = new ArrayList<>();
         Directions currentDir = startDir;
 
+        // iterate through each character in the path string and create command objects 
         for (char c : path.toCharArray()) {
             if (c == 'F'){
                 commands.add(new MoveForwardCommand(currentDir));
@@ -48,10 +50,12 @@ public class PathFinder {
         return commands;
     }
 
+    // method to simulate the user provided path in the maze to verify correctness
     public boolean simulatePath(Maze maze, MazeLocation start, Directions startDir, List<Command> commands) {
         MazeLocation currentPos = start;
         Directions currentDir = startDir;
     
+        // iterate through each command and update the current position and direction
         for (Command cmd : commands) {
             MazeLocation nextPos = cmd.execute(maze, currentPos, currentDir);
             if (maze.isWall(nextPos)) {
@@ -60,7 +64,7 @@ public class PathFinder {
             currentDir = cmd.getNewDir(currentDir);
             currentPos = nextPos;
         }
-    
+        // check if the final position is the exit
         return currentPos.equals(maze.getExit());
     }
     

@@ -3,12 +3,15 @@ package ca.mcmaster.se2aa4.mazerunner.Path;
 import ca.mcmaster.se2aa4.mazerunner.MazeInfo.*;
 import ca.mcmaster.se2aa4.mazerunner.Commands.Action;
 
+//concrete implementation of the MovementObserver interface that acts as observer to track path 
 public class PathGenerator implements MovementObserver {
 
     private final StringBuilder path = new StringBuilder();
 
+    // overriding the onMove method from the MovementObserver interface to track the path 
     @Override
     public void onMove(MazeLocation location, Directions direction, Action action) {
+        // based on current action, append corresponding characters to path 
         if (action == Action.left) {
             path.append("LF");
         }else if (action == Action.right) {    
@@ -20,6 +23,7 @@ public class PathGenerator implements MovementObserver {
         }
     }
 
+    // method to get path as a string 
     public String getPath() {
         return getFactorized(path.toString());
     }

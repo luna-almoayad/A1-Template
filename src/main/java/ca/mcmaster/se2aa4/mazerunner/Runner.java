@@ -1,19 +1,16 @@
 package ca.mcmaster.se2aa4.mazerunner;
-
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import ca.mcmaster.se2aa4.mazerunner.Commands.*;
 import ca.mcmaster.se2aa4.mazerunner.Path.*;
 import ca.mcmaster.se2aa4.mazerunner.MazeInfo.*;
 
+// A subject of the system, that the observers can subscribe to
 public class Runner extends Subject implements MazeSolver {
 
     private PathGenerator generator;
     private static final Logger logger = LogManager.getLogger(Runner.class);
     
-
     //Constructor method to initialize pathfinder object
     public Runner (PathGenerator generator){
         this.generator= generator;
@@ -29,7 +26,9 @@ public class Runner extends Subject implements MazeSolver {
         // loop through algorithm while the current position is not at exit of maze 
         while (!currentPos.equals(maze.getExit())){
 
+            //create new command based on current conditions 
             Command command = getNextCommand(maze, currentPos, currentDir);
+            //update location, and notify observers to update generated path 
             MazeLocation nextPos = command.execute(maze, currentPos, currentDir);
             notifyObservers (nextPos, command.getNewDir(currentDir), command.getAction());
             currentPos = nextPos;
@@ -37,9 +36,7 @@ public class Runner extends Subject implements MazeSolver {
                
             logger.debug("Current Position: " + currentPos.toString()+ "\n Current path:" + generator.getPath());
         }
-
         return generator.getPath(); // return final path 
-
     }
 
     public Command getNextCommand(Maze maze, MazeLocation pos, Directions dir){
@@ -56,7 +53,6 @@ public class Runner extends Subject implements MazeSolver {
             else{
                 return new UturnCommand();
             }
-            
         //right hand side is not wall, turn right
         }else{
             return new MoveRightCommand();
