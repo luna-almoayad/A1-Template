@@ -1,73 +1,60 @@
 package ca.mcmaster.se2aa4.mazerunner.Path;
-import java.util.ArrayList;
-import java.util.List;
-import ca.mcmaster.se2aa4.mazerunner.Commands.*;
 import ca.mcmaster.se2aa4.mazerunner.MazeInfo.*;
-
 
 public class PathFinder {
 
+    //Constructor method to initialize a new path
+    public PathFinder(){
+    }
+
+    //Method to traverse through maze to validate user path 
+    private Boolean isCorrectPath(Maze maze, String userPath) {
+        //current position is start and initital orientation is right 
+        MazeLocation currentPos = maze.getEntry(); 
+        Directions currentDir = Directions.E;  
+
+        // Iterate through each character of user string 
+        for (int i = 0; i < userPath.length(); i++) {
+            char step = userPath.charAt(i);
+            
+            // complete the appropriate action for each step 
+            if (step == 'R') {
+                currentDir = currentDir.rightTurn();
+            } else if (step == 'L') {
+                currentDir = currentDir.leftTurn();
+            } else if (step == 'F') {
+                // check if there's no wall before moving forward 
+                MazeLocation nextPos = currentPos.makeMove(currentDir);
+                if (maze.isWall(nextPos)) {
+                    return false; 
+                }
+                // update position
+                currentPos = nextPos;
+            }
+        }
+
+        // check if exit is reached to determine if valid path 
+        if (currentPos.equals(maze.getExit())){
+            return true;  
+        }
+        return false;  
+    }
+
     // checks user provided path 
     public boolean checkPath(Maze maze, String userPath){
-        String cleanedPath = expandFactorizedForm(userPath);
-        String reversedPath = reversePath(cleanedPath);
-        List<Command> commands = pathToCommands(cleanedPath, Directions.E);
-        List<Command> reversedCommands = pathToCommands(reversedPath, Directions.W);
-
-        // try East-to-West maze traversal 
-        if (simulatePath(maze, maze.getEntry(), Directions.E, commands)) {
+         // convert path in case it is factorized 
+        String cleanedPath= expandFactorizedForm(userPath);
+        // reverse path to check for west - east traversal 
+        String reversedPath= reversePath(cleanedPath);
+         //determine if it is correct by traversing through maze
+        if (isCorrectPath(maze, cleanedPath) || isCorrectPath(maze, reversedPath) ){
             System.out.println("Correct Path!");
             return true;
+        }else{
+            System.out.println("Incorrect Path.");
+            return false;
         }
-    
-        // try West-to-East maze traversal
-        if (simulatePath(maze, maze.getEntry(), Directions.W, reversedCommands)) {
-            System.out.println("Correct Path!");
-            return true;
-        }
-    
-        System.out.println("Incorrect Path.");
-        return false;
     }
-
-    // method to convert path string to list of command objects 
-    public List<Command> pathToCommands(String path, Directions startDir) {
-        List<Command> commands = new ArrayList<>();
-        Directions currentDir = startDir;
-
-        // iterate through each character in the path string and create command objects 
-        for (char c : path.toCharArray()) {
-            if (c == 'F'){
-                commands.add(new MoveForwardCommand(currentDir));
-            }else if (c == 'L'){
-                currentDir = currentDir.leftTurn();
-                commands.add(new MoveForwardCommand(currentDir));
-            }else if( c== 'R'){
-                currentDir = currentDir.rightTurn();
-                commands.add(new MoveForwardCommand(currentDir));      
-            }
-        }
-        return commands;
-    }
-
-    // method to simulate the user provided path in the maze to verify correctness
-    public boolean simulatePath(Maze maze, MazeLocation start, Directions startDir, List<Command> commands) {
-        MazeLocation currentPos = start;
-        Directions currentDir = startDir;
-    
-        // iterate through each command and update the current position and direction
-        for (Command cmd : commands) {
-            MazeLocation nextPos = cmd.execute(maze, currentPos, currentDir);
-            if (maze.isWall(nextPos)) {
-                return false;
-            }
-            currentDir = cmd.getNewDir(currentDir);
-            currentPos = nextPos;
-        }
-        // check if the final position is the exit
-        return currentPos.equals(maze.getExit());
-    }
-    
 
     // Expands factorized form to canonical
     public String expandFactorizedForm(String path){
@@ -119,5 +106,3 @@ public class PathFinder {
         
             
 }
-
-
